@@ -18,7 +18,7 @@
 package org.dromara.hmily.core.service.impl;
 
 import org.dromara.hmily.common.bean.context.HmilyTransactionContext;
-import org.dromara.hmily.common.enums.HmilyRoleEnum;;
+import org.dromara.hmily.common.enums.HmilyRoleEnum;
 import org.dromara.hmily.core.service.HmilyTransactionFactoryService;
 import org.dromara.hmily.core.service.handler.ConsumeHmilyTransactionHandler;
 import org.dromara.hmily.core.service.handler.LocalHmilyTransactionHandler;
