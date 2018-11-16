@@ -17,10 +17,12 @@
 
 package org.dromara.hmily.common.utils;
 
-import org.slf4j.Logger;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
+
+import org.slf4j.Logger;
 
 /**
  * LogUtil.
@@ -47,6 +49,8 @@ public final class LogUtil {
      * @return the instance
      */
     public static LogUtil getInstance() {
+    	List<String> lists = new ArrayList<>();
+    	lists.stream().filter((s -> s.startsWith("a"))).forEach(System.out::println);//将开头是a的过滤出来
         return LOG_UTIL;
     }
 
