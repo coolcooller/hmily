@@ -7,9 +7,9 @@ server:
 spring:
     datasource:
         driver-class-name:  com.mysql.jdbc.Driver
-        url: jdbc:mysql://192.168.6.128:3306/tcc_account?useUnicode=true&characterEncoding=utf8
-        username: hap
-        password: 123456
+        url: jdbc:mysql://192.168.1.11:3307/tcc_account?useUnicode=true&characterEncoding=utf8
+        username: root
+        password: 1
 
 org:
     dromara:
@@ -23,9 +23,9 @@ org:
             started: false
             hmilyDbConfig :
                  driverClassName  : com.mysql.jdbc.Driver
-                 url :  jdbc:mysql://192.168.6.128:3306/tcc?useUnicode=true&amp;characterEncoding=utf8
-                 username : hap
-                 password : 123456
+                 url :  jdbc:mysql://192.168.1.11:3307/tcc?useUnicode=true&amp;characterEncoding=utf8
+                 username : root
+                 password : 1
 
         #repositorySupport : redis
         #tccRedisConfig:
