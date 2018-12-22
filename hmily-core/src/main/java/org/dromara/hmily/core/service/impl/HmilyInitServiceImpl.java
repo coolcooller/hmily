@@ -58,7 +58,8 @@ public class HmilyInitServiceImpl implements HmilyInitService {
     private final HmilyTransactionEventPublisher hmilyTransactionEventPublisher;
 
     @Autowired
-    public HmilyInitServiceImpl(final HmilyCoordinatorService hmilyCoordinatorService, final HmilyTransactionEventPublisher hmilyTransactionEventPublisher) {
+    public HmilyInitServiceImpl(final HmilyCoordinatorService hmilyCoordinatorService,
+                                final HmilyTransactionEventPublisher hmilyTransactionEventPublisher) {
         this.hmilyCoordinatorService = hmilyCoordinatorService;
         this.hmilyTransactionEventPublisher = hmilyTransactionEventPublisher;
     }
@@ -89,17 +90,25 @@ public class HmilyInitServiceImpl implements HmilyInitService {
      */
     private void loadSpiSupport(final HmilyConfig hmilyConfig) {
         //spi serialize
-        final SerializeEnum serializeEnum = SerializeEnum.acquire(hmilyConfig.getSerializer());
-        final ServiceLoader<ObjectSerializer> objectSerializers = ServiceBootstrap.loadAll(ObjectSerializer.class);
-        final ObjectSerializer serializer = StreamSupport.stream(objectSerializers.spliterator(), false)
-                .filter(objectSerializer -> Objects.equals(objectSerializer.getScheme(), serializeEnum.getSerialize()))
-                .findFirst().orElse(new KryoSerializer());
+        final SerializeEnum serializeEnum =
+                SerializeEnum.acquire(hmilyConfig.getSerializer());
+
+        final ServiceLoader<ObjectSerializer> objectSerializers =
+                ServiceBootstrap.loadAll(ObjectSerializer.class);
+
+        final ObjectSerializer serializer =
+                StreamSupport.stream(objectSerializers.spliterator(), false)
+                        .filter(objectSerializer -> Objects.equals(objectSerializer.getScheme(), serializeEnum.getSerialize()))
+                        .findFirst().orElse(new KryoSerializer());
         //spi repository
-        final RepositorySupportEnum repositorySupportEnum = RepositorySupportEnum.acquire(hmilyConfig.getRepositorySupport());
-        final ServiceLoader<HmilyCoordinatorRepository> recoverRepositories = ServiceBootstrap.loadAll(HmilyCoordinatorRepository.class);
-        final HmilyCoordinatorRepository repository = StreamSupport.stream(recoverRepositories.spliterator(), false)
-                .filter(recoverRepository -> Objects.equals(recoverRepository.getScheme(), repositorySupportEnum.getSupport()))
-                .findFirst().orElse(new JdbcCoordinatorRepository());
+        final RepositorySupportEnum repositorySupportEnum =
+                RepositorySupportEnum.acquire(hmilyConfig.getRepositorySupport());
+        final ServiceLoader<HmilyCoordinatorRepository> recoverRepositories =
+                ServiceBootstrap.loadAll(HmilyCoordinatorRepository.class);
+        final HmilyCoordinatorRepository repository =
+                StreamSupport.stream(recoverRepositories.spliterator(), false)
+                        .filter(recoverRepository -> Objects.equals(recoverRepository.getScheme(), repositorySupportEnum.getSupport()))
+                        .findFirst().orElse(new JdbcCoordinatorRepository());
         repository.setSerializer(serializer);
         SpringBeanUtils.getInstance().registerBean(HmilyCoordinatorRepository.class.getName(), repository);
     }
